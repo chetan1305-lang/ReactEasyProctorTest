@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import React, {useState} from 'react'
+
+const App = () => {
+  const data = [
+    {
+      name:"Newton School"
+    },
+    {
+      name:"Node"
+    },
+    {
+      name:"React"
+    }
+  ]
+  const [search, setSearch] = useState('');
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <React.Fragment>
+      <h3>Search</h3>
+      <input type="text" id="search-input" onChange={(e) => {setSearch(e.target.value)}} />
+      <h3>Result</h3>
+      {
+        data && data.filter((val) =>{
+          if(search == "") {
+            return val;
+          }else if(val.name.toLowerCase().includes(search.toLowerCase())){
+            return val;
+          }
+        }).map((item,id) => {
+          return (
+            <div>
+              <li>{item.name}</li>
+            </div>
+          )
+        })
+      }
+    </React.Fragment>
+  )
 }
 
-export default App;
+export default App
